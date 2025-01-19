@@ -70,12 +70,12 @@ export const RaffleContextProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const _getAmount = async () => {
-  //     await getAmount();
-  //   };
-  //   _getAmount();
-  // }, []);
+  useEffect(() => {
+    const _getAmount = async () => {
+      await getAmount();
+    };
+    _getAmount();
+  }, []);
 
   const contextValues = { sendEther, amount };
 
