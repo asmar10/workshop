@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Header from "./components/Header.jsx";
-
 import "./App.css";
 import Form from "./components/Form.jsx";
+import { useConnectionStatus } from "@thirdweb-dev/react";
 
 function App() {
-
+  const connectionStatus = useConnectionStatus();
+  console.log(connectionStatus)
   return (
     <>
       <Header />
