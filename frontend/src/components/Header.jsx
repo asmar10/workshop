@@ -1,5 +1,7 @@
 import React from "react";
 import "../App.css";
+import { ConnectButton } from "thirdweb/react";
+import { client, vanguard } from "../client";
 
 const Header = () => {
   return (
@@ -10,8 +12,7 @@ const Header = () => {
         class="logo"
       />
 
-      <button className="connect-wallet-btn">Connect Wallet</button>
-      
+      <ConnectButton client={client} chain={vanguard} />
     </div>
   );
 };
