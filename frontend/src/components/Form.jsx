@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+"use-client";
+import { ethers } from "ethers";
+
+import React, { useEffect, useState } from "react";
 import "../App.css";
 import { ConnectButton } from "thirdweb/react";
 import { client, vanguard } from "../client";
+import { useRaffleContext } from "../context/raffleContext";
 
 const Form = () => {
-  const [number, setNumber] = useState("");
+  const { sendEther, amount } = useRaffleContext();
 
-  const handleEthSubmit = () => {};
-
-  const handleNumberSubmit = () => {
-    if (number) {
-      alert(`Number submitted: ${number}`);
-    } else {
-      alert("Please enter a number!");
-    }
+  const handleEthSubmit = async () => {
+    await sendEther();
   };
 
   return (
     <>
-      <h1>Register here: </h1>
+      <h1>Raffle </h1>
+      <h2>Current Reward: {amount} </h2>
 
       <button
         onClick={() => handleEthSubmit()}
@@ -33,24 +32,7 @@ const Form = () => {
           marginBottom: "20px",
         }}
       >
-        Register
-      </button>
-
-      <h1>Guess the imposter:</h1>
-
-      <button
-        onClick={handleNumberSubmit}
-        style={{
-          padding: "12px 20px",
-          fontSize: "16px",
-          borderRadius: "8px",
-          border: "none",
-          backgroundColor: "#4CAF50",
-          color: "white",
-          width: "50%",
-        }}
-      >
-        Submit
+        Enter lottery
       </button>
     </>
   );
