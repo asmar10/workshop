@@ -6,6 +6,7 @@ import "../App.css";
 import { ConnectButton } from "thirdweb/react";
 import { client, vanguard } from "../client";
 import { useRaffleContext } from "../context/raffleContext";
+import { CONTRACT_CONFIG } from "../config";
 
 const Form = () => {
   const { sendEther, amount } = useRaffleContext();
@@ -34,6 +35,8 @@ const Form = () => {
       >
         Enter lottery
       </button>
+
+      <p>Lottery Address: {CONTRACT_CONFIG.raffleContractAddress}</p>
     </>
   );
 };
