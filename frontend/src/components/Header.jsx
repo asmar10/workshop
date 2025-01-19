@@ -9,7 +9,7 @@ const Header = () => {
       <img
         src="https://cdn-testnet.vanarchain.com/assets/images/vanguard-logo.svg"
         alt="Vanar Logo"
-        class="logo"
+        className="logo"
       />
 
       <ConnectButton client={client} chain={vanguard} />

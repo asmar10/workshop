@@ -11,5 +11,3 @@ export const vanguard = defineChain({
   rpc: "https://rpc-vanguard.vanarchain.com",
   explorers: "https://explorer-vanguard.vanarchain.com/",
 });
-
-// Define the custom Vanar chain
