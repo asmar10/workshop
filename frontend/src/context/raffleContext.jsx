@@ -61,7 +61,7 @@ export const RaffleContextProvider = ({ children }) => {
       await getAmount();
     } catch (error) {
       console.log(error);
-      alert("Error:", error);
+      alert("Transaction failed");
     }
   };
   const getAmount = async () => {
@@ -71,9 +71,16 @@ export const RaffleContextProvider = ({ children }) => {
       console.log(_amount);
       setAmount(_amount.toString()); // Convert BigNumber to string for state management
     } catch (error) {
-      console.error("Error fetching amount:", error);
+      console.error(error);
     }
   };
+
+  // useEffect(() => {
+  //   const _getAmount = async () => {
+  //     await getAmount();
+  //   };
+  //   _getAmount();
+  // }, []);
 
   const contextValues = { sendEther, amount };
 
