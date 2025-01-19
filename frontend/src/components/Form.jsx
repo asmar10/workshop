@@ -18,7 +18,7 @@ const Form = () => {
   return (
     <>
       <h1>Raffle </h1>
-      <h2>Current Prize: {ethers.utils.formatEther(`${amount}`)} </h2>
+      <h2>Current Prize: {ethers.utils.formatEther(`${amount}`)} VANRY </h2>
 
       <button
         onClick={() => handleEthSubmit()}
