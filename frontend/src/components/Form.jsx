@@ -6,11 +6,13 @@ import "../App.css";
 import { useRaffleContext } from "../context/raffleContext";
 import { CONTRACT_CONFIG } from "../config";
 import { useState } from "react";
+import { useActiveAccount } from "thirdweb/react";
 
 const Form = () => {
+  const account = useActiveAccount();
   const { enterLottery, amount, participants } = useRaffleContext();
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(!account);
   const handleEthSubmit = async () => {
     setIsLoading(true);
 
@@ -31,15 +33,14 @@ const Form = () => {
           fontSize: "16px",
           borderRadius: "8px",
           border: "none",
-          backgroundColor: isLoading ? "#A5D6A7" : "#4CAF50",
+          backgroundColor: isLoading || !account ? "#ada0ea" : "#a08cff", // Conditionally set background color
           color: "white",
           width: "50%",
           marginBottom: "20px",
-          opacity: isLoading ? 0.6 : 1,
-          cursor: isLoading ? "not-allowed" : "pointer",
+          opacity: isLoading || !account ? 0.6 : 1, // Adjust opacity based on loading or account status
+          cursor: isLoading || !account ? "not-allowed" : "pointer", // Set cursor appropriately
         }}
-        disabled={isLoading}
-        class="disabled:opacity-60 disabled:cursor-not-allowed"
+        disabled={isLoading || !account} // Disable button based on loading or account status
       >
         {isLoading ? (
           <div className="spinner-container">
