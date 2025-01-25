@@ -9,8 +9,7 @@ import { useState } from "react";
 import { useActiveAccount } from "thirdweb/react";
 
 const Form = () => {
-  const account = useActiveAccount();
-  const { enterLottery, amount, participants } = useRaffleContext();
+  const { enterLottery, amount, participants,account } = useRaffleContext();
   const [isLoading, setIsLoading] = useState(false);
   console.log(!account);
   const handleEthSubmit = async () => {
