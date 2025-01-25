@@ -10,9 +10,7 @@ import {
   NotifyError,
   NotifySuccess,
 } from "./helper";
-import { sendTransaction, getContract, prepareContractCall } from "thirdweb";
 import { useActiveAccount } from "thirdweb/react";
-import { vanguard, client } from "../client";
 
 const RaffleContext = createContext(undefined);
 export const RaffleContextProvider = ({ children }) => {
@@ -54,42 +52,23 @@ export const RaffleContextProvider = ({ children }) => {
 
   const enterLottery = async () => {
     try {
-      const contract = getContract({
-        address: CONTRACT_CONFIG.raffleContractAddress,
-        chain: vanguard,
-        client,
-      });
-      const transaction = prepareContractCall({
-        contract,
-        method: "function enterLottery()",
+      const contract = getRaffleContract(true);
+
+      await contract.callStatic.enterLottery({
         value: getWeiFrom("1"),
       });
 
-      const { transactionHash } = await sendTransaction({
-        account,
-        transaction,
+      let tx = await contract.enterLottery({
+        value: getWeiFrom("1"),
       });
 
-      // const contract = getRaffleContract(true);
-
-      // await contract.callStatic.enterLottery({
-      //   value: getWeiFrom("1"),
-      // });
-
-      // let tx = await contract.enterLottery({
-      //   value: getWeiFrom("1"),
-      // });
-
-      // await tx.wait();
+      await tx.wait();
 
       NotifySuccess("Success!");
       await getAmount();
       await getParticipants();
     } catch (err) {
-      console.log(err);
-      // const _msg = getErrorMessage(err);
-      console.log(JSON.parse(err));
-      // NotifyError(err.TransactionError);
+      throw new Error(err);
     }
   };
   const getAmount = async () => {

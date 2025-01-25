@@ -7,16 +7,27 @@ import { useRaffleContext } from "../context/raffleContext";
 import { CONTRACT_CONFIG } from "../config";
 import { useState } from "react";
 import { useActiveAccount } from "thirdweb/react";
+import {
+  extractTransactionError,
+  getErrorMessage,
+  NotifyError,
+} from "../context/helper";
 
 const Form = () => {
-  const { enterLottery, amount, participants,account } = useRaffleContext();
+  const { enterLottery, amount, participants, account } = useRaffleContext();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(!account);
   const handleEthSubmit = async () => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    await enterLottery();
-    setIsLoading(false);
+      await enterLottery();
+    } catch (err) {
+      const _msg = getErrorMessage(err);
+      // console.log(JSON.parse(err));
+      NotifyError(_msg);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
