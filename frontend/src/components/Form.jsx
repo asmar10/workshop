@@ -5,14 +5,29 @@ import "../App.css";
 import { useRaffleContext } from "../context/raffleContext";
 import { CONTRACT_CONFIG } from "../config";
 import { useState } from "react";
-import { getErrorMessage, getWeiFrom, NotifyError } from "../context/helper";
+import {
+  getErrorMessage,
+  getEthFrom,
+  getWeiFrom,
+  NotifyError,
+} from "../context/helper";
+import { ethers } from "ethers";
 
 const Form = () => {
   const { enterLottery, amount, participants, account } = useRaffleContext();
   const [isLoading, setIsLoading] = useState(false);
+  console.log(account);
   const handleEthSubmit = async () => {
     try {
       setIsLoading(true);
+      const provider = new ethers.providers.JsonRpcProvider(
+        CONTRACT_CONFIG.rpc
+      );
+
+      let _balance = await provider.getBalance(account.address);
+      _balance = Number(getEthFrom(_balance._hex));
+
+      if (_balance < 1) throw new Error("Insufficient Funds");
 
       await enterLottery();
     } catch (err) {
