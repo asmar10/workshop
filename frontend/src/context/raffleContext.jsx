@@ -4,14 +4,14 @@ import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useState } from "react";
 import { raffleContractAbi } from "../utils/abis";
 import { CONTRACT_CONFIG } from "../config";
-import { getWeiFrom, NotifySuccess } from "./helper";
+import { getEthFrom, getWeiFrom, NotifySuccess } from "./helper";
 import { useActiveAccount } from "thirdweb/react";
 
 const RaffleContext = createContext(undefined);
 
 export const RaffleContextProvider = ({ children }) => {
-  const [amount, setAmount] = useState(0);
-  const [participants, setParticipants] = useState(0);
+  const [amount, setAmount] = useState("0");
+  const [participants, setParticipants] = useState("0");
   const account = useActiveAccount();
 
   const getRaffleContract = (isSigner = false) => {
@@ -70,9 +70,9 @@ export const RaffleContextProvider = ({ children }) => {
   const getAmount = async () => {
     try {
       const contract = getRaffleContract();
-      let _amount = await contract.getTotalAmount();
-      console.log(_amount);
-      setAmount(_amount.toString());
+      let _amount = await contract.getTotalReward();
+      console.log(Number(_amount));
+      setAmount(getEthFrom(_amount.toString()));
     } catch (error) {
       console.error(error);
     }
@@ -81,15 +81,16 @@ export const RaffleContextProvider = ({ children }) => {
   const getParticipants = async () => {
     const contract = getRaffleContract();
     const _res = await contract.getTotalReward();
-    console.log(_res, "total participants");
-    setParticipants(_res);
+    console.log(getEthFrom(_res), "total participants");
+    setParticipants(getEthFrom(_res));
   };
 
   useEffect(() => {
-    const _getAmount = async () => {
+    const getData = async () => {
       await getAmount();
+      await getParticipants()
     };
-    // _getAmount();
+    getData();
   }, []);
 
   const contextValues = { enterLottery, amount, participants, account };

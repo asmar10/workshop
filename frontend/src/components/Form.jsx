@@ -41,8 +41,8 @@ const Form = () => {
   return (
     <>
       <h1>Raffle </h1>
-      <h2>Current Prize: {getWeiFrom(`${amount}`)} VANRY </h2>
-      <h2>Number of Participants: {participants}</h2>
+      <h2>Current Prize: {amount} VANRY </h2>
+      <h2>Number of Participants: {(participants)}</h2>
 
       <button
         onClick={() => handleEthSubmit()}
