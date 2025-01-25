@@ -7,7 +7,6 @@ error ExistingEntry();
 error RaffleNotOpen();
 error NotAllowed();
 
-import "hardhat/console.sol";
 
 contract Raffle {
     //STATE VARIABLES

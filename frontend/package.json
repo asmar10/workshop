@@ -16,6 +16,7 @@
     "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.5.1",
     "thirdweb": "^5.85.0"
   },
   "devDependencies": {

@@ -1,24 +1,28 @@
 "use-client";
 import { ethers } from "ethers";
 
-import React, { useEffect, useState } from "react";
 import "../App.css";
-import { ConnectButton } from "thirdweb/react";
-import { client, vanguard } from "../client";
+
 import { useRaffleContext } from "../context/raffleContext";
 import { CONTRACT_CONFIG } from "../config";
+import { useState } from "react";
 
 const Form = () => {
-  const { sendEther, amount } = useRaffleContext();
+  const { enterLottery, amount, participants } = useRaffleContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleEthSubmit = async () => {
-    await sendEther();
+    setIsLoading(true);
+
+    await enterLottery();
+    setIsLoading(false);
   };
 
   return (
     <>
       <h1>Raffle </h1>
       <h2>Current Prize: {ethers.utils.formatEther(`${amount}`)} VANRY </h2>
+      <h2>Number of Participants: {participants}</h2>
 
       <button
         onClick={() => handleEthSubmit()}
@@ -32,6 +36,7 @@ const Form = () => {
           width: "50%",
           marginBottom: "20px",
         }}
+        disabled={isLoading}
       >
         Enter lottery
       </button>

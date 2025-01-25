@@ -4,11 +4,12 @@ import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useState } from "react";
 import { raffleContractAbi } from "../utils/abis";
 import { CONTRACT_CONFIG } from "../config";
-
+import { getErrorMessage, NotifyError, NotifySuccess } from "./helper";
 
 const RaffleContext = createContext(undefined);
 export const RaffleContextProvider = ({ children }) => {
   const [amount, setAmount] = useState(0);
+  const [participants, setParticipants] = useState(0);
 
   const getRaffleContract = (isSigner = false) => {
     const provider = new ethers.providers.JsonRpcProvider(
@@ -39,45 +40,58 @@ export const RaffleContextProvider = ({ children }) => {
   const transaction = {
     to: CONTRACT_CONFIG.raffleContractAddress,
     value: ethers.utils.parseEther("1"),
-    gasLimit: 2100000,
+    gasLimit: 210000,
   };
 
-  const sendEther = async () => {
+  const enterLottery = async () => {
     try {
-      const signer = new ethers.providers.Web3Provider(
-        window.ethereum
-      ).getSigner();
-      console.log("Sending transaction...");
-      const txResponse = await signer.sendTransaction(transaction);
-      console.log("Transaction response:", txResponse);
+      const contract = getRaffleContract(true);
 
-      const receipt = await txResponse.wait();
-      console.log("Transaction receipt:", receipt);
+      await contract.callStatic.enterLottery({
+        value: ethers.utils.parseEther("1"),
+      });
+
+      let tx = await contract.enterLottery({
+        value: ethers.utils.parseEther("1"),
+      });
+
+      await tx.wait();
+
+      NotifySuccess("Success!");
       await getAmount();
-    } catch (error) {
-      console.log(error);
-      alert("Transaction failed");
+      await getParticipants();
+    } catch (err) {
+      console.log(err);
+      const _msg = getErrorMessage(err);
+      NotifyError(_msg);
     }
   };
   const getAmount = async () => {
     try {
       const contract = getRaffleContract();
-      let _amount = await contract.getTotalAmount(); 
+      let _amount = await contract.getTotalAmount();
       console.log(_amount);
-      setAmount(_amount.toString()); 
+      setAmount(_amount.toString());
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const getParticipants = async () => {
+    const contract = getRaffleContract();
+    const _res = await contract.getTotalReward();
+    console.log(_res, "total participants");
+    setParticipants(_res)
   };
 
   useEffect(() => {
     const _getAmount = async () => {
       await getAmount();
     };
-    _getAmount();
+    // _getAmount();
   }, []);
 
-  const contextValues = { sendEther, amount };
+  const contextValues = { enterLottery, amount, participants };
 
   return (
     <RaffleContext.Provider value={contextValues}>
