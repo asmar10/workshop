@@ -4,15 +4,11 @@ import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useState } from "react";
 import { raffleContractAbi } from "../utils/abis";
 import { CONTRACT_CONFIG } from "../config";
-import {
-  getErrorMessage,
-  getWeiFrom,
-  NotifyError,
-  NotifySuccess,
-} from "./helper";
+import { getWeiFrom, NotifySuccess } from "./helper";
 import { useActiveAccount } from "thirdweb/react";
 
 const RaffleContext = createContext(undefined);
+
 export const RaffleContextProvider = ({ children }) => {
   const [amount, setAmount] = useState(0);
   const [participants, setParticipants] = useState(0);

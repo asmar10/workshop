@@ -24,7 +24,6 @@ const Header = () => {
       />
 
       <ConnectButton
-      
         client={client}
         wallets={wallets}
         chain={vanguard}

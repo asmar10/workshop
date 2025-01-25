@@ -1,17 +1,11 @@
 "use-client";
-import { ethers } from "ethers";
 
 import "../App.css";
 
 import { useRaffleContext } from "../context/raffleContext";
 import { CONTRACT_CONFIG } from "../config";
 import { useState } from "react";
-import { useActiveAccount } from "thirdweb/react";
-import {
-  extractTransactionError,
-  getErrorMessage,
-  NotifyError,
-} from "../context/helper";
+import { getErrorMessage, getWeiFrom, NotifyError } from "../context/helper";
 
 const Form = () => {
   const { enterLottery, amount, participants, account } = useRaffleContext();
@@ -23,7 +17,6 @@ const Form = () => {
       await enterLottery();
     } catch (err) {
       const _msg = getErrorMessage(err);
-      // console.log(JSON.parse(err));
       NotifyError(_msg);
     } finally {
       setIsLoading(false);
@@ -33,7 +26,7 @@ const Form = () => {
   return (
     <>
       <h1>Raffle </h1>
-      <h2>Current Prize: {ethers.utils.formatEther(`${amount}`)} VANRY </h2>
+      <h2>Current Prize: {getWeiFrom(`${amount}`)} VANRY </h2>
       <h2>Number of Participants: {participants}</h2>
 
       <button
