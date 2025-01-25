@@ -16,12 +16,12 @@ import { ethers } from "ethers";
 const Form = () => {
   const { enterLottery, amount, participants, account } = useRaffleContext();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(account);
+
   const handleEthSubmit = async () => {
     try {
       setIsLoading(true);
       const provider = new ethers.providers.JsonRpcProvider(
-        CONTRACT_CONFIG.rpc
+        CONTRACT_CONFIG.vanguardRpc
       );
 
       let _balance = await provider.getBalance(account.address);
