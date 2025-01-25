@@ -31,12 +31,15 @@ const Form = () => {
           fontSize: "16px",
           borderRadius: "8px",
           border: "none",
-          backgroundColor: "#4CAF50",
+          backgroundColor: isLoading ? "#A5D6A7" : "#4CAF50",
           color: "white",
           width: "50%",
           marginBottom: "20px",
+          opacity: isLoading ? 0.6 : 1,
+          cursor: isLoading ? "not-allowed" : "pointer",
         }}
         disabled={isLoading}
+        class="disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isLoading ? (
           <div className="spinner-container">

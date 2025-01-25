@@ -3,6 +3,17 @@ import "../App.css";
 import { ConnectButton } from "thirdweb/react";
 import { client, vanguard } from "../client";
 
+import { inAppWallet, createWallet } from "thirdweb/wallets";
+
+const wallets = [
+  inAppWallet({
+    auth: {
+      options: ["email"],
+    },
+  }),
+  createWallet("io.metamask"),
+];
+
 const Header = () => {
   return (
     <div className="header">
@@ -12,7 +23,13 @@ const Header = () => {
         className="logo"
       />
 
-      <ConnectButton client={client} chain={vanguard} />
+      <ConnectButton
+      
+        client={client}
+        wallets={wallets}
+        chain={vanguard}
+        connectModal={{ size: "compact" }}
+      />
     </div>
   );
 };
