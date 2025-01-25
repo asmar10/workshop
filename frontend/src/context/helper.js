@@ -13,6 +13,7 @@ export function shortenWalletAddress(address, length = 3) {
     return address;
   }
 
+
   return `${prefix}${mainAddress.slice(0, length)}...${mainAddress.slice(
     -length
   )}`;
@@ -26,9 +27,10 @@ export function truncateAmount(value) {
   return Number(value);
 }
 
+
 const errorMessages = {
   InvalidFee: "The fee specified is invalid.",
-  ExistingEntry: "An entry already exists.",
+  ExistingEntry: "Already a Participant",
   RaffleNotOpen: "The raffle is not currently open.",
   NotAllowed: "This action is not allowed.",
 };
@@ -140,3 +142,5 @@ export const NotifyError = (msg) => {
 
   errorToastId.current = toast.error(msg);
 };
+
+

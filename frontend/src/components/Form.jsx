@@ -38,7 +38,13 @@ const Form = () => {
         }}
         disabled={isLoading}
       >
-        Enter lottery
+        {isLoading ? (
+          <div className="spinner-container">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+          "Enter lottery"
+        )}
       </button>
 
       <p>Lottery Address: {CONTRACT_CONFIG.raffleContractAddress}</p>

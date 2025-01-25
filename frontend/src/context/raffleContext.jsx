@@ -4,7 +4,12 @@ import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useState } from "react";
 import { raffleContractAbi } from "../utils/abis";
 import { CONTRACT_CONFIG } from "../config";
-import { getErrorMessage, NotifyError, NotifySuccess } from "./helper";
+import {
+  getErrorMessage,
+  getWeiFrom,
+  NotifyError,
+  NotifySuccess,
+} from "./helper";
 
 const RaffleContext = createContext(undefined);
 export const RaffleContextProvider = ({ children }) => {
@@ -48,11 +53,11 @@ export const RaffleContextProvider = ({ children }) => {
       const contract = getRaffleContract(true);
 
       await contract.callStatic.enterLottery({
-        value: ethers.utils.parseEther("1"),
+        value: getWeiFrom("1"),
       });
 
       let tx = await contract.enterLottery({
-        value: ethers.utils.parseEther("1"),
+        value: getWeiFrom("1"),
       });
 
       await tx.wait();
@@ -81,7 +86,7 @@ export const RaffleContextProvider = ({ children }) => {
     const contract = getRaffleContract();
     const _res = await contract.getTotalReward();
     console.log(_res, "total participants");
-    setParticipants(_res)
+    setParticipants(_res);
   };
 
   useEffect(() => {

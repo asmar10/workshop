@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1005;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -80,4 +80,26 @@
 
 .connect-wallet-btn:hover {
   background-color: #ff7f2a;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  height: 20px; /* Full viewport height, adjust as necessary */
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border-top-color: #3d4a6c;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
