@@ -51,14 +51,14 @@ const Form = () => {
           fontSize: "16px",
           borderRadius: "8px",
           border: "none",
-          backgroundColor: isLoading || !account ? "#ada0ea" : "#a08cff", // Conditionally set background color
+          backgroundColor: isLoading || !account ? "#ada0ea" : "#a08cff", 
           color: "white",
           width: "50%",
           marginBottom: "20px",
-          opacity: isLoading || !account ? 0.6 : 1, // Adjust opacity based on loading or account status
-          cursor: isLoading || !account ? "not-allowed" : "pointer", // Set cursor appropriately
+          opacity: isLoading || !account ? 0.6 : 1, 
+          cursor: isLoading || !account ? "not-allowed" : "pointer", 
         }}
-        disabled={isLoading || !account} // Disable button based on loading or account status
+        disabled={isLoading || !account} 
       >
         {isLoading ? (
           <div className="spinner-container">
