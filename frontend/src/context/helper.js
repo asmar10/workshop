@@ -141,8 +141,3 @@ export const NotifyError = (msg) => {
   errorToastId.current = toast.error(msg);
 };
 
-export const extractTransactionError = (text) => {
-  const regex = /TransactionError:\s*(.*)/;
-  const matches = text.match(regex);
-  return matches ? matches[1] : ""; // Return the captured group if there's a match, otherwise return an empty string
-};

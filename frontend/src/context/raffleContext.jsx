@@ -85,13 +85,13 @@ export const RaffleContextProvider = ({ children }) => {
     setParticipants(getEthFrom(_res));
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      await getAmount();
-      await getParticipants()
-    };
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     await getAmount();
+  //     await getParticipants()
+  //   };
+  //   getData();
+  // }, []);
 
   const contextValues = { enterLottery, amount, participants, account };
 
